@@ -14,16 +14,40 @@ public class Main {
         int[] dice1 = {1, 2, 3, 4, 5, 6};
         int[] dice2 = {1, 2, 3, 4, 5, 6};
 
-        int nA = 0;
-        int nB = 0;
+        int nA = 0; // 3의 배수를 넣을곳
+        int nB = 0; // 4의 배수를 넣을곳
         int nAandB = 0;
         
         // 기본 풀이
+        for (int item1: dice1) {
+            for (int item2: dice2) {
+                if ((item1 + item2) % 3 == 0) { // 3의 배수 찾기
+                    nA += 1;
+                } // 여기서 6,6 = 12를 하나 얻고
 
+                if ((item1 + item2) % 4 == 0) { // 4의 배수 찾기
+                    nB += 1;
+                } // 여기서도 12를 하나 얻는다
+
+                if ((item1 + item2) % 12 == 0) { // 12는 3과 4의 공통 배수이기에 하나를 빼야한다
+                    nAandB += 1;
+                } // 여기서 얻은 12하나를 nAandB 변수 즉, A,B 둘다 갖는 변수에 하나 넣어서
+            }
+        }
+        System.out.println("기본 풀이 결과 : " + (nA + nB - nAandB)); // 여기서 하나 빼줌으로서 해결
 
         
         // HashSet 이용
-
+        HashSet<ArrayList> allCase = new HashSet<>();
+        for (int item1 : dice1) {
+            for (int item2: dice2) {
+                if ((item1 + item2) % 3 == 0 || (item1 + item2) % 4 == 0) {
+                    ArrayList list = new ArrayList(Arrays.asList(item1, item2));
+                    allCase.add(list);
+                }
+            }
+        }
+        System.out.println("HashSet 풀이 결과 : " + allCase.size());
 
 
 //      2. 곱의 법칙
@@ -32,6 +56,19 @@ public class Main {
         nA = 0;
         nB = 0;
 
+        for (int item1: dice1) {
+            if (item1 % 3 == 0) {
+                nA++;
+            }
+        }
+
+        for (int item1: dice2) {
+            if (item1 % 4 == 0) {
+                nB++;
+            }
+        }
+
+        System.out.println("결과 : " + nA * nB);
 
     }
 }

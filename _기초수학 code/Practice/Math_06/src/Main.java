@@ -2,12 +2,19 @@
 
 public class Main {
 
+    static int recursion1(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        return 3 * recursion1(n - 1);
+    }
+
     public static void main(String[] args) {
         
 //      점화식 -> 반복문, 재귀함수
         System.out.println("== 점화식/재귀함수 연습1 ==");
 //      1, 3, 9, 27, ... 의 n번째 수
-        int n = 4;
+        int n = 4; // n번째 수의 n
         int result = 1;
         for (int i = 0; i < n; i++) {
             if (i == 0) {
